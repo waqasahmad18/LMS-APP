@@ -1,6 +1,10 @@
+"use client";
 import Link from 'next/link';
+import { AuthProvider, useAuth } from './AuthContext';
 
-export default function Navbar() {
+function NavbarContent() {
+  const { user, logout } = useAuth();
+
   return (
     <nav className="bg-white shadow-md sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -17,13 +21,35 @@ export default function Navbar() {
             <Link href="/about" className="text-gray-700 hover:text-blue-600 font-medium transition">About</Link>
             <Link href="/contact" className="text-gray-700 hover:text-blue-600 font-medium transition">Contact</Link>
           </div>
-          {/* Auth Buttons */}
+          {/* Auth Buttons or User Info */}
           <div className="flex items-center space-x-4">
-            <Link href="/login" className="px-4 py-2 rounded-md text-blue-600 border border-blue-600 hover:bg-blue-50 font-semibold transition">Login</Link>
-            <Link href="/register" className="px-4 py-2 rounded-md bg-blue-600 text-white hover:bg-blue-700 font-semibold transition">Register</Link>
+            {user ? (
+              <>
+                <span className="text-blue-700 font-semibold">{user.name} ({user.role})</span>
+                <button
+                  onClick={logout}
+                  className="px-4 py-2 rounded-md bg-red-500 text-white hover:bg-red-600 font-semibold transition"
+                >
+                  Logout
+                </button>
+              </>
+            ) : (
+              <>
+                <Link href="/login" className="px-4 py-2 rounded-md text-blue-600 border border-blue-600 hover:bg-blue-50 font-semibold transition">Login</Link>
+                <Link href="/register" className="px-4 py-2 rounded-md bg-blue-600 text-white hover:bg-blue-700 font-semibold transition">Register</Link>
+              </>
+            )}
           </div>
         </div>
       </div>
     </nav>
+  );
+}
+
+export default function Navbar() {
+  return (
+    <AuthProvider>
+      <NavbarContent />
+    </AuthProvider>
   );
 } 

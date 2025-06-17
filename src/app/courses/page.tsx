@@ -78,9 +78,11 @@ export default function Courses() {
                       className="w-full h-48 object-cover group-hover:scale-105 transition-transform"
                     />
                   ) : (
-                    <div className="w-full h-48 bg-blue-100 flex items-center justify-center text-blue-400 text-5xl font-bold">
-                      <span>{course.title[0]}</span>
-                    </div>
+                    <img
+                      src="/4 (2).jpg"
+                      alt="Default Course"
+                      className="w-full h-48 object-cover group-hover:scale-105 transition-transform"
+                    />
                   )}
                   <span className="absolute top-3 left-3 bg-blue-600 text-white text-xs px-3 py-1 rounded-full shadow">New</span>
                 </div>

@@ -4,7 +4,8 @@ export default function Footer() {
   return (
     <footer className="bg-gray-900 text-gray-200 py-8 mt-16">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center">
-        <div className="mb-4 md:mb-0">
+        <div className="mb-4 md:mb-0 flex items-center gap-2">
+          <img src="/window.svg" alt="LMSPro Logo" className="w-7 h-7 inline-block" />
           <span className="text-lg font-bold text-blue-400">LMSPro</span>
           <span className="ml-2 text-sm">&copy; {new Date().getFullYear()} All rights reserved.</span>
         </div>

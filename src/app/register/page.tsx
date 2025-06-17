@@ -10,13 +10,29 @@ export default function Register() {
     name: '',
     email: '',
     password: '',
-    role: 'STUDENT',
+    role: 'student',
   });
+  const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // TODO: Implement registration logic
-    console.log('Registration attempt:', formData);
+    setLoading(true);
+    setError('');
+    const res = await fetch('/api/auth/register', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(formData),
+    });
+    const data = await res.json();
+    if (res.ok) {
+      localStorage.setItem('token', data.token);
+      localStorage.setItem('user', JSON.stringify(data.user));
+      router.push('/courses');
+    } else {
+      setError(data.error || 'Registration failed');
+    }
+    setLoading(false);
   };
 
   return (
@@ -86,18 +102,21 @@ export default function Register() {
                 value={formData.role}
                 onChange={(e) => setFormData({ ...formData, role: e.target.value })}
               >
-                <option value="STUDENT">Student</option>
-                <option value="TEACHER">Teacher</option>
+                <option value="student">Student</option>
+                <option value="teacher">Teacher</option>
               </select>
             </div>
           </div>
+
+          {error && <div className="text-red-600 text-sm mt-2">{error}</div>}
 
           <div>
             <button
               type="submit"
               className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+              disabled={loading}
             >
-              Register
+              {loading ? 'Registering...' : 'Register'}
             </button>
           </div>
         </form>

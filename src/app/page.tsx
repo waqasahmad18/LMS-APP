@@ -16,7 +16,7 @@ export default function Home() {
           <Link href="/register" className="px-8 py-3 bg-blue-600 text-white rounded-lg font-semibold text-lg shadow hover:bg-blue-700 transition">Get Started</Link>
           <Link href="/courses" className="px-8 py-3 bg-white border border-blue-600 text-blue-700 rounded-lg font-semibold text-lg shadow hover:bg-blue-50 transition">Browse Courses</Link>
         </div>
-        <img src="/public/hero-illustration.svg" alt="LMS Hero" className="mx-auto w-full max-w-md rounded-xl shadow-lg" />
+        <img src="/1.jpg" alt="LMS Hero" className="mx-auto w-full max-w-md rounded-xl shadow-lg object-cover" />
       </section>
 
       {/* Features Section */}

@@ -2,6 +2,7 @@ export default function About() {
   return (
     <div className="max-w-4xl mx-auto py-16 px-4">
       <h1 className="text-4xl font-bold text-blue-800 mb-6">About LMSPro</h1>
+      <img src="/2.jpg" alt="Our Team" className="w-full max-w-lg rounded-xl shadow mb-8 mx-auto" />
       <p className="text-lg text-gray-700 mb-8">
         LMSPro aik modern Learning Management System hai jo students aur teachers ko ek platform par laata hai. Humara mission hai ke learning ko asaan, accessible aur engaging banaya jaye. Yahan aap courses create, enroll aur manage kar sakte hain, apni progress track kar sakte hain aur community se connect ho sakte hain.
       </p>

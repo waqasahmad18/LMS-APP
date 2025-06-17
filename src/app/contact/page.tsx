@@ -18,6 +18,7 @@ export default function Contact() {
   return (
     <div className="max-w-2xl mx-auto py-16 px-4">
       <h1 className="text-4xl font-bold text-blue-800 mb-6">Contact Us</h1>
+      <img src="/3 (2).jpg" alt="Contact" className="w-full max-w-md rounded-xl shadow mb-8 mx-auto" />
       <p className="text-lg text-gray-700 mb-8">Agar aapko koi sawal hai ya feedback dena hai, neeche form fill karein. Hum jald reply karenge!</p>
       <form onSubmit={handleSubmit} className="bg-white rounded-xl shadow p-8 space-y-6">
         <div>
