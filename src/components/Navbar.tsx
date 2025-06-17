@@ -2,9 +2,11 @@
 import Link from 'next/link';
 import { AuthProvider, useAuth } from './AuthContext';
 import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 
 function NavbarContent() {
   const { user, logout } = useAuth();
+  const router = useRouter();
   const [menuOpen, setMenuOpen] = useState(false);
   const [authMenuOpen, setAuthMenuOpen] = useState(false);
 
@@ -47,7 +49,7 @@ function NavbarContent() {
               <>
                 <span className="hidden sm:inline text-blue-700 font-semibold">{user.name} ({user.role})</span>
                 <button
-                  onClick={logout}
+                  onClick={() => { logout(); router.push('/'); }}
                   className="px-4 py-2 rounded-md bg-red-500 text-white hover:bg-red-600 font-semibold transition"
                 >
                   Logout
@@ -77,7 +79,7 @@ function NavbarContent() {
                   <>
                     <span className="block px-4 py-2 text-blue-700 font-semibold">{user.name} ({user.role})</span>
                     <button
-                      onClick={() => { logout(); setAuthMenuOpen(false); }}
+                      onClick={() => { logout(); setAuthMenuOpen(false); router.push('/'); }}
                       className="block w-full text-left px-4 py-2 text-red-600 hover:bg-red-50"
                     >
                       Logout

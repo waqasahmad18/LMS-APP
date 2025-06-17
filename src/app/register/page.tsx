@@ -3,9 +3,11 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import { useAuth } from '@/components/AuthContext';
 
 export default function Register() {
   const router = useRouter();
+  const { login: authLogin } = useAuth();
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -26,8 +28,7 @@ export default function Register() {
     });
     const data = await res.json();
     if (res.ok) {
-      localStorage.setItem('token', data.token);
-      localStorage.setItem('user', JSON.stringify(data.user));
+      authLogin(data.user, data.token);
       router.push('/courses');
     } else {
       setError(data.error || 'Registration failed');

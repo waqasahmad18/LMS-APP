@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import { useAuth } from "@/components/AuthContext";
 
 interface Course {
   _id: string;
@@ -12,6 +13,7 @@ interface Course {
 }
 
 export default function Courses() {
+  const { user } = useAuth();
   const [courses, setCourses] = useState<Course[]>([]);
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState("");
@@ -29,6 +31,16 @@ export default function Courses() {
     course.title.toLowerCase().includes(search.toLowerCase()) ||
     course.description.toLowerCase().includes(search.toLowerCase())
   );
+
+  const handleDelete = async (id: string) => {
+    if (!window.confirm("Are you sure you want to delete this course?")) return;
+    const res = await fetch(`/api/courses/${id}`, { method: "DELETE" });
+    if (res.ok) {
+      setCourses((prev) => prev.filter((c) => c._id !== id));
+    } else {
+      alert("Failed to delete course.");
+    }
+  };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-blue-100 pb-16">
@@ -99,6 +111,22 @@ export default function Courses() {
                   >
                     View Details
                   </Link>
+                  {user?.role === "teacher" && (
+                    <div className="flex gap-2 mt-4">
+                      <Link
+                        href={`/courses/${course._id}/edit`}
+                        className="px-4 py-2 bg-yellow-400 text-white rounded hover:bg-yellow-500 font-semibold transition"
+                      >
+                        Edit
+                      </Link>
+                      <button
+                        onClick={() => handleDelete(course._id)}
+                        className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600 font-semibold transition"
+                      >
+                        Delete
+                      </button>
+                    </div>
+                  )}
                 </div>
               </div>
             ))}
